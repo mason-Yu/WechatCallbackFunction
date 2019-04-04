@@ -73,7 +73,7 @@ public class Program {
             // Map<String, String> params = RequestUtil.parseXml(request);
             // 对于安全模式下的xml密码
             Map<String, String> params = parseDecryptXml(msgSignature, timeStamp, nonce, request);
-            logger.info("进入大树保公众号回调事件返回信息:\n" + params);
+            logger.info("进入公众号回调事件返回信息:\n" + params);
 
             // 如果是event事件且event事件类型为subscribe则是新用户,需要进行用户信息入库
             if(Constant.EVENT.equalsIgnoreCase(params.get(Constant.MsgType))
@@ -97,12 +97,12 @@ public class Program {
                 uriVariables.put("appKey", appkey);
                 ServiceMap sm = resttemplate.postForObject(surl, uriVariables,ServiceMap.class);
                 if(sm.isSuccess()) {
-                    logger.info("新用户关注大树保公众号成功");
+                    logger.info("新用户关注公众号成功");
                     // 返回加密的xml格式response
                     String toUserName = params.get(Constant.ToUserName);
                     return generateXml(toUserName, openId, timeStamp, nonce);
                 } else {
-                    logger.info("新用户关注大树保公众号成功, 信息入库失败");
+                    logger.info("新用户关注公众号成功, 信息入库失败");
                 }
             }
         } catch (Exception e) {
